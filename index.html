@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Prakiraan Cuaca Indonesia Terkini | ZenWeather</title>
+    <meta name="description" content="Akurat dan cepat! Cek prakiraan cuaca seluruh kota di Indonesia berdasarkan data BMKG. Visualisasi animasi cuaca real-time.">
+    
+    <meta property="og:title" content="ZenWeather Indonesia | Prakiraan Cuaca BMKG">
+    <meta property="og:description" content="Cek cuaca kota Anda dengan visualisasi unik dan data real-time.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.nama-domain-kamu.com/"> 
+    <meta property="og:image" content="assets/icon/favicon.jpg">
+    
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="flex flex-col min-h-screen text-black overflow-x-hidden">
+    <div id="zenwood-bg-gradient" class="min-h-screen relative flex-grow">
+        
+        <div id="weather-effects-layer" class="absolute inset-0 pointer-events-none z-0">
+            <div id="sun-element" class="hidden absolute top-10 right-10 w-32 h-32 bg-yellow-400 rounded-full shadow-[0_0_60px_rgba(253,224,71,0.8)] z-10"></div>
+            
+            <div id="rain-container" class="hidden absolute inset-0 z-20 overflow-hidden">
+                <div class="rain-overlay absolute inset-0"></div>
+            </div>
+
+            <div id="screen-droplets" class="hidden absolute inset-0 z-50 opacity-30 mix-blend-overlay pointer-events-none"></div>
+        </div>
+
+        <div id="cloud-layer">
+            <img src="assets/cloud1.png" alt="Awan putih tipis bergerak di langit" class="cloud-image w-48 h-auto absolute top-10 left-10 animated-item animation-delay-200 opacity-60 transition-all duration-1000" onerror="this.style.display='none'">
+            <img src="assets/cloud1.png" alt="Awan di ufuk barat" class="cloud-image w-64 h-auto absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 animated-item animation-delay-400 opacity-50 transition-all duration-1000" onerror="this.style.display='none'">
+            <img src="assets/cloud2.png" alt="Awan kecil di tengah" class="cloud-image w-32 h-32 absolute top-1/3 left-1/4 animated-item animation-delay-600 opacity-70 transition-all duration-1000" onerror="this.style.display='none'">
+            <img src="assets/cloud2.png" alt="Awan tebal di sudut" class="cloud-image w-72 h-auto absolute top-20 right-20 animated-item animation-delay-800 opacity-60 transition-all duration-1000" onerror="this.style.display='none'">
+            
+            <img src="assets/cloud1.png" alt="Awan mendung tambahan" class="cloud-extra cloud-image w-56 absolute top-1/2 left-10 opacity-0 transition-all duration-1000" onerror="this.style.display='none'">
+            <img src="assets/cloud2.png" alt="Kabut tebal cuaca buruk" class="cloud-extra cloud-image w-80 absolute top-1/4 right-1/3 opacity-0 transition-all duration-1000" onerror="this.style.display='none'">
+        </div>
+
+        <header class="py-6 flex justify-center sticky top-0 z-50">
+            <nav id="zen-navbar" class="zen-nav-outer">
+                <a href="#hero" class="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white text-xl font-bold smooth-scroll flex-shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </a>
+
+                <div class="nav-content-wrapper">
+                    <a href="#hero" id="nav-link-home" class="nav-link nav-link-active smooth-scroll">
+                        <span id="nav-home-text">Home</span>
+                    </a>
+                    <a href="#details-feature" id="nav-link-feature" class="nav-link smooth-scroll hidden sm:block">Fitur</a>
+                    <a href="#contact" id="nav-link-contact" class="nav-link smooth-scroll hidden sm:block">FAQ</a>
+
+                    <a href="#cta-footer" class="btn-contact-zen flex items-center smooth-scroll">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26c.39.26.86.4 1.34.4s.95-.14 1.34-.4L21 8m-2 10a2 2 0 01-2 2H7a2 2 0 01-2-2V8a2 2 0 012-2h10a2 2 0 012 2v10z"></path></svg>
+                        Contact Us
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-8 max-w-7xl flex-grow">
+            <div id="app-content">
+                </div>
+            
+            <section id="details-feature" class="py-24" style="padding-top: 96px; padding-bottom: 96px;">
+                <h2 class="h2-zen text-center mb-16 animated-item animation-delay-2000">Mengapa ZenWeather?</h2>
+
+                <div class="columns-1 sm:columns-2 lg:columns-2 gap-6 max-w-5xl mx-auto">
+                    <div class="why-zenweather-card skew-down-left animated-item animation-delay-2200 break-inside-avoid mb-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="assets/icon/icon-precision.png" alt="Ikon Presisi Data Cuaca" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
+                            <h3 class="text-2xl font-bold mb-0 text-black">Data Presisi</h3>
+                        </div>
+                        <div class="card-accent-line"></div>
+                        <p class="text-base text-[#2C2C2C] leading-relaxed">Manfaatkan API BMKG untuk pembacaan akurat dan terkini di seluruh kota utama di Indonesia.</p>
+                        <p class="text-base text-[#2C2C2C] leading-relaxed mt-1">Ini adalah konten tambahan untuk membuat kartu ini lebih tinggi. Dengan layout Masonry, kartu di bawahnya akan mengisi ruang kosong di kolom lainnya.</p>
+                    </div>
+                    
+                    <div class="why-zenweather-card skew-down-right animated-item animation-delay-2400 break-inside-avoid mb-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="assets/icon/icon-speed.png" alt="Ikon Kecepatan Zen" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
+                            <h3 class="text-2xl font-bold mb-0 text-black">Kecepatan Zen</h3>
+                        </div>
+                        <div class="card-accent-line"></div>
+                        <p class="text-base text-[#2C2C2C] leading-relaxed">Dibangun dengan kode ringan (HTML/Tailwind/JS) untuk pengalaman pengguna yang cepat dan bebas stres.</p>
+                    </div>
+
+                    <div class="why-zenweather-card skew-down-right animated-item animation-delay-2600 break-inside-avoid mb-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="assets/icon/icon-humidity.png" alt="Ikon Kelembapan dan Angin" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
+                            <h3 class="text-2xl font-bold mb-0 text-black">Kelembapan & Angin</h3>
+                        </div>
+                        <div class="card-accent-line"></div>
+                        <p class="text-base text-[#2C2C2C] leading-relaxed">Lebih dari sekadar suhu: periksa kecepatan angin, tekanan, dan kelembapan data penting untuk pelancong pulau.</p>
+                    </div>
+
+                    <div class="why-zenweather-card skew-down-left animated-item animation-delay-2800 break-inside-avoid mb-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <img src="assets/icon/icon-responsive.png" alt="Ikon Desain Website Responsif" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
+                            <h3 class="text-2xl font-bold mb-0 text-black">Responsif</h3>
+                        </div>
+                        <div class="card-accent-line"></div>
+                        <p class="text-base text-[#2C2C2C] leading-relaxed">Desain website responsif modern yang secara otomatis menyesuaikan tata letak, gambar, teks, dan elemen lainnya agar tampil sempurna di berbagai ukuran layar perangkat pengunjung.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-24" style="padding-top: 96px; padding-bottom: 96px;">
+                 <h2 class="h2-zen text-center mb-16 animated-item animation-delay-3800">Frequently Asked Questions</h2>
+
+                <div class="max-w-3xl mx-auto space-y-6 animated-item animation-delay-4000">
+                    <div class="faq-card bg-white rounded-2xl overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none group" aria-expanded="false">
+                            <span class="text-xl font-bold text-black pr-8">Bagaimana cara mendapatkan prakiraan cuaca?</span>
+                            <svg class="w-7 h-7 text-[#2B8A9E] transition-transform duration-500 ease-out" fill="currentColor" viewBox="0 0 20 20">
+                                <path class="plus" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                                <path class="minus opacity-0" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"/>
+                            </svg>
+                        </button>
+                        <div class="relative">
+                            <div class="absolute inset-x-0 top-0 h-12 bg-[#F8F8F8] rounded-t-2xl"></div>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-out">
+                                <div class="relative p-6 pt-8 text-[#2C2C2C] leading-relaxed bg-[#F8F8F8]">
+                                    Cukup ketik nama kota, kecamatan, atau desa di kolom pencarian. ZenWeather langsung menampilkan prakiraan cuaca terkini + 3 hari ke depan menggunakan data resmi BMKG.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-card bg-white rounded-2xl overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none group" aria-expanded="false">
+                            <span class="text-xl font-bold text-black pr-8">Apakah data yang ditampilkan akurat?</span>
+                            <svg class="w-7 h-7 text-[#2B8A9E] transition-transform duration-500 ease-out" fill="currentColor" viewBox="0 0 20 20">
+                                <path class="plus" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                                <path class="minus opacity-0" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"/>
+                            </svg>
+                        </button>
+                        <div class="relative">
+                            <div class="absolute inset-x-0 top-0 h-12 bg-[#F8F8F8] rounded-t-2xl"></div>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-out">
+                                <div class="relative p-6 pt-8 text-[#2C2C2C] leading-relaxed bg-[#F8F8F8]">
+                                    Ya, 100% data resmi dari BMKG (Badan Meteorologi, Klimatologi, dan Geofisika) Indonesia.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-card bg-white rounded-2xl overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left focus:outline-none group" aria-expanded="false">
+                            <span class="text-xl font-bold text-black pr-8">Kenapa desa saya tidak muncul?</span>
+                            <svg class="w-7 h-7 text-[#2B8A9E] transition-transform duration-500 ease-out" fill="currentColor" viewBox="0 0 20 20">
+                                <path class="plus" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                                <path class="minus opacity-0" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"/>
+                            </svg>
+                        </button>
+                        <div class="relative">
+                            <div class="absolute inset-x-0 top-0 h-12 bg-[#F8F8F8] rounded-t-2xl"></div>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-out">
+                                <div class="relative p-6 pt-8 text-[#2C2C2C] leading-relaxed bg-[#F8F8F8]">
+                                    Coba cari menggunakan nama kecamatan atau kabupaten jika nama desa spesifik tidak ditemukan. Kalau tidak, berarti masih belum ada record yang teregister wilayahmu.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="cta-footer" class="relative mt-32 transform translate-y-12 md:translate-y-16"> 
+            <div class="bg-white rounded-t-[60px] mx-auto max-w-4xl relative z-10 px-4 pt-4 pb-8 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+                <div class="cta-border-top-side border-dashed border-[#C4C4C4] rounded-t-[48px] py-8 px-6 md:px-12 text-center relative overflow-hidden">
+                    <h2 class="text-4xl md:text-6xl font-black text-black mb-6 tracking-tight">Punya Ide Hebat? Mari Mulai!</h2>
+
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+                        <a href="#" id="book-call-btn" class="btn-cta-yellow flex items-center justify-center text-black rounded-full transition transform hover:-translate-y-1">
+                            Book a call
+                        </a>
+                        
+                        <a href="#" id="send-email-btn" class="btn-cta-outline flex items-center justify-center text-black rounded-full transition transform hover:-translate-y-1 bg-[#F3F4F6] contact-btn">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                            <span id="email-btn-text">Send an email</span>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-2">
+                        <p class="text-gray-500 text-sm mt-2">© Zenguard 2025</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="error-notification" class="fixed bottom-8 right-0 transform translate-x-full transition-transform duration-500 ease-in-out z-50 p-4 w-full max-w-xs md:max-w-md">
+        <div class="bg-red-600 text-white p-4 rounded-xl shadow-lg flex items-center gap-3">
+            <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            <span id="notification-message" class="text-sm font-medium">Pesan kesalahan akan muncul di sini.</span>
+        </div>
+    </div>
+    <div id="success-notification" class="fixed bottom-8 right-0 transform translate-x-full transition-transform duration-500 ease-in-out z-50 p-4 w-full max-w-xs md:max-w-md">
+        <div class="bg-green-600 text-white p-4 rounded-xl shadow-lg flex items-center gap-3">
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span id="success-message" class="text-sm font-medium">Ini adalah pesan sukses.</span>
+        </div>
+    </div>
+
+    <audio id="rain-sfx" loop>
+        <source src="assets/sfx/rain.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <audio id="storm-sfx" loop>
+        <source src="assets/sfx/rainthunder.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
