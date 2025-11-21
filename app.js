@@ -641,7 +641,7 @@ function renderHomePage() {
             <h1 class="h1-zen max-w-4xl mx-auto mb-6 animated-item animation-delay-1200">Prakiraan Cuaca Indonesia (BMKG)</h1>
             <p class="body-lg-zen max-w-2xl mx-auto mb-10 animated-item animation-delay-1400">Masukkan nama Desa atau Kelurahan untuk mendapatkan prakiraan cuaca BMKG terkini.</p>
             
-            <form id="weather-search-form" class="flex justify-center mb-16 animated-item animation-delay-1600">
+            <form id="weather-search-form" class="mt-8 flex flex-wrap gap-4 w-full justify-center animated-item animation-delay-1600">
                 <div class="bg-white rounded-[24px] shadow-lg p-3 w-full max-w-2xl relative" style="box-shadow: rgb(207, 207, 207) 0px -3px 0px inset;">
                     
                     <div class="flex gap-4">
@@ -1232,4 +1232,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 });
